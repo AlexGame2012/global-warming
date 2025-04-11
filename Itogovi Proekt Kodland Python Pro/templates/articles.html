@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50; /* Зеленый цвет */
+        }
+        .articles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* Отступы между карточками */
+        }
+        .article {
+            background-color: #fff;
+            border: 2px solid #4CAF50; /* Зеленая рамка */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1 1 calc(33.333% - 20px); /* Три карточки в ряд с учетом отступов */
+            max-width: 300px; /* Максимальная ширина карточки */
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .page-button {
+            display: inline-block;
+            background-color: white; /* Белый цвет по умолчанию */
+            color: #333;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #4CAF50; /* Зеленая рамка */
+            margin: 0 5px;
+        }
+        .page-button:hover {
+            background-color: #FF5722; /* Более темный оранжевый при наведении */
+        }
+        .button {
+            display: inline-block;
+            background-color: #FF9800; /* Оранжевый цвет кнопки */
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #FF5722; /* Более темный оранжевый при наведении */
+        }
+        .like-button {
+            background-color: #2196F3; /* Синий цвет кнопки лайка */
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .like-button:hover {
+            background-color: #1976D2; /* Более темный синий при наведении */
+        }
+    </style>
+</head>
+<body>
+    <h1>Новости</h1>
+    <div class="articles">
+        {% for article in articles %}
+            <div class="article">
+                <img src="{{ article.image }}" alt="Фото" style="width: 100%; height: auto; margin-bottom: 10px;">
+                <h2>{{ article.title }}</h2>
+                <p>Views: {{ article.views }}</p>
+                <p>Date: {{ article.date }}</p
+                <a href="https://new-science.ru/{{ article.link }}" class="button">Read More</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% for i in range(1, 6) %}
+            <a href="/articles/{{ i }}" class="page-button">{{ i }}</a>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
