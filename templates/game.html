@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.min.js"></script>
+  <meta charset="UTF-8" />
+  <title>Игра: Спаси планету от глобального потепления</title>
+  <style>
+    body { margin: 0; overflow: hidden; background-color: #121212; }
+    #hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      background: rgba(0,0,0,0.6);
+      padding: 12px;
+      border-radius: 8px;
+      max-width: 300px;
+      user-select: none;
+      z-index: 10;
+    }
+    button#restart {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #3399ff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button#restart:hover {
+      background: #55aaff;
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <h2>Игра: Спаси планету!</h2>
+    <p>Кликайте по ледяным кубикам и деревьям, чтобы уменьшить уровень CO2.</p>
+    <p><b>Уровень CO2: <span id="co2">100</span></b></p>
+    <button id="restart">Начать заново</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
+
+  <script>
+    let scene, camera, renderer;
+    let clickableObjects = [];
+    let co2Level = 100;
+    const co2Display = document.getElementById('co2');
+    const restartBtn = document.getElementById('restart');
+
+    function init() {
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      // Камера смотрит на центр (0,0,0)
+      camera.position.set(0, 5, 10);
+      camera.lookAt(0, 0, 0);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Освещение
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(5, 10, 7);
+      scene.add(directionalLight);
+
+      // Земля - зелёный шар радиусом 3
+      const earthGeometry = new THREE.SphereGeometry(3, 32, 32);
+      const earthMaterial = new THREE.MeshPhongMaterial({
+        color: 0x2e7d32,
+        shininess: 10,
+      });
+      const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+      scene.add(earth);
+
+      // Добавляем объекты
+      clickableObjects = [];
+
+      for (let i = 0; i < 10; i++) {
+        // Ледяные кубы, голубые
+        const cubeGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+        const cubeMat = new THREE.MeshPhongMaterial({ color: 0x4fc3f7 });
+        const cube = new THREE.Mesh(cubeGeo, cubeMat);
+        cube.position.set(
+          (Math.random() - 0.5) * 8,
+          (Math.random() - 0.5) * 4 + 1,
+          (Math.random() - 0.5) * 8
+        );
+        cube.userData = { type: 'ice' };
+        scene.add(cube);
+        clickableObjects.push(cube);
+
+        // Деревья - зеленые сферы
+        const sphereGeo = new THREE.SphereGeometry(0.3, 16, 16);
+        const sphereMat = new THREE.MeshPhongMaterial({ color: 0x388e3c });
+        const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+        sphere.position.set(
+          (Math.random() - 0.5) * 8,
+          (Math.random() - 0.5) * 4 + 1,
+          (Math.random() - 0.5) * 8
+        );
+        sphere.userData = { type: 'tree' };
+        scene.add(sphere);
+        clickableObjects.push(sphere);
+      }
+
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('click', onClick);
+
+      updateCO2(0);
+
+      animate();
+    }
+
+    function updateCO2(amount) {
+      co2Level -= amount;
+      if (co2Level < 0) co2Level = 0;
+      co2Display.textContent = co2Level;
+      if (co2Level === 0) {
+        setTimeout(() => {
+          alert('Поздравляем! Вы спасли планету от глобального потепления!');
+        }, 100);
+      }
+    }
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onClick(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects(clickableObjects.filter(obj => obj.visible));
+      if (intersects.length > 0) {
+        const obj = intersects[0].object;
+        if (obj.userData.type === 'ice') {
+          updateCO2(12);
+        } else if (obj.userData.type === 'tree') {
+          updateCO2(8);
+        }
+        obj.visible = false;
+      }
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      // Вращаем Землю
+      scene.children.forEach(child => {
+        if (child.geometry && child.geometry.type === "SphereGeometry") {
+          child.rotation.y += 0.002;
+        }
+      });
+      renderer.render(scene, camera);
+    }
+
+    restartBtn.addEventListener('click', () => {
+      // Удаляем льды и деревья из сцены
+      for (let i = scene.children.length - 1; i >= 0; i--) {
+        const obj = scene.children[i];
+        if (obj.userData && (obj.userData.type === 'ice' || obj.userData.type === 'tree')) {
+          scene.remove(obj);
+          const index = clickableObjects.indexOf(obj);
+          if (index > -1) clickableObjects.splice(index, 1);
+        }
+      }
+
+      co2Level = 100;
+      co2Display.textContent = co2Level;
+
+      // Добавляем заново
+      for (let i = 0; i < 10; i++) {
+        const cubeGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+        const cubeMat = new THREE.MeshPhongMaterial({ color: 0x4fc3f7 });
+        const cube = new THREE.Mesh(cubeGeo, cubeMat);
+        cube.position.set(
+          (Math.random() - 0.5) * 8,
+          (Math.random() - 0.5) * 4 + 1,
+          (Math.random() - 0.5) * 8
+        );
+        cube.userData = { type: 'ice' };
+        scene.add(cube);
+        clickableObjects.push(cube);
+
+        const sphereGeo = new THREE.SphereGeometry(0.3, 16, 16);
+        const sphereMat = new THREE.MeshPhongMaterial({ color: 0x388e3c });
+        const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+        sphere.position.set(
+          (Math.random() - 0.5) * 8,
+          (Math.random() - 0.5) * 4 + 1,
+          (Math.random() - 0.5) * 8
+        );
+        sphere.userData = { type: 'tree' };
+        scene.add(sphere);
+        clickableObjects.push(sphere);
+      }
+    });
+
+    // Инициализируем игру
+    init();
+  </script>
+</body>
+</html>

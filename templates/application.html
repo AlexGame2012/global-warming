@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Метатег для адаптивности -->
+    <title>Подача заявки</title>
+    <link rel="shortcut icon" href="https://i.imgur.com/Svz1Ed7.png"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Шрифт для всего документа */
+            margin: 0;
+            padding: 20px;
+            background-color: #1e1e1e; /* Темный цвет фона */
+            color: #ffffff; /* Белый цвет текста */
+        }
+        h1, h2 {
+            color: #ffffff; /* Цвет заголовков */
+        }
+        form {
+            background-color: #2a2a2a; /* Темный цвет фона формы */
+            padding: 20px;
+            border-radius: 5px; /* Закругленные углы */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Тень для формы */
+            margin-bottom: 20px; /* Отступ снизу */
+        }
+        input, select, textarea {
+            width: 100%; /* Ширина элементов формы */
+            padding: 10px; /* Отступ внутри элементов */
+            margin: 10px 0; /* Отступ сверху и снизу */
+            border: 1px solid #555; /* Граница элементов */
+            border-radius: 4px; /* Закругленные углы */
+            background-color: #3a3a3a; /* Темный цвет фона элементов */
+            color: #ffffff; /* Цвет текста элементов */
+        }
+        button {
+            background-color: #28a745; /* Цвет кнопки */
+            color: white; /* Цвет текста кнопки */
+            border: none; /* Без границы */
+            padding: 10px; /* Отступ внутри кнопки */
+            border-radius: 4px; /* Закругленные углы */
+            cursor: pointer; /* Указатель при наведении */
+            width: 100%; /* Ширина кнопки */
+        }
+        button:hover {
+            background-color: #218838; /* Цвет кнопки при наведении */
+        }
+        ul {
+            list-style-type: none; /* Убираем маркеры списка */
+            padding: 0; /* Убираем отступы */
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #444; /* Разделитель между элементами списка */
+        }
+        li:last-child {
+            border-bottom: none; /* Убираем разделитель у последнего элемента списка */
+        }
+        a {
+            color: #ffcc00; /* Цвет ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+        a:hover {
+            text-decoration: underline; /* Подчеркивание ссылки при наведении */
+        }
+    </style>
+</head>
+<body>
+    <h1>Подача заявки</h1>
+    Заявки подаются строго по <a href="/forma_p">форме</a>!
+    Заявки, составленные не по форме, будут отклонены!
+
+ <form action="/submit" method="POST">
+        <textarea name="description" placeholder="Описание" style="height: 120px" wrap="soft" required></textarea> <!-- Добавлен атрибут wrap -->
+        <button type="submit">Отправить заявку</button>
+    </form>
+
+    <h2>Заявки</h2>
+    <ul>
+        {% for application in applications %}
+            <li>
+                <a href="/teh_help/{{ application.id }}">Заявка #{{ application.id }}</a> - {{ application.user.username }}
+            </li>
+        {% else %}
+            <li>Нет заявок.</li>  <!-- Сообщение, если заявок нет -->
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
