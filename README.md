@@ -17,7 +17,7 @@
 
 ```git clone https://github.com/AlexGame2012/global-warming.git```
 
-2. Переход в директорию Oxygen
+2. Переход в директорию global-warming
 
 ```cd global-warming```
 
