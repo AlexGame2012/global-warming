@@ -7,7 +7,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/AlexGame2012/global-warming)
 ![GitHub issues](https://img.shields.io/github/issues/AlexGame2012/global-warming)
 
-![Logotype](https://i.imgur.com/M156USt.png)
+<img src="https://i.imgur.com/M156USt.png" width="200" />
 
 <!--Установка-->
 ## Установка (Linux)
