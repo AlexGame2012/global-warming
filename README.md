@@ -38,6 +38,37 @@
 ```python app.py ```
 
 
+
+<!--Установка-->
+## Установка (Windows)
+
+У вас должны быть установлены [зависимости проекта](https://github.com/AlexGame2012/global-warming#зависимости)
+
+1. Клонирование репозитория
+
+```git clone https://github.com/AlexGame2012/global-warming.git```
+
+Переход в директорию global-warming
+
+```cd global-warming```
+
+Создание виртуального окружения
+
+```python -m venv venv```
+
+Активация виртуального окружения
+
+```venv\Scripts\activate```
+
+Установка зависимостей
+
+```pip install -r requirements.txt```
+
+Запуск скрипта для демонстрации возможностей global-warming
+
+```python app.py```
+
+
 [Релизы программы]: https://github.com/OkulusDev/Oxygen/releases
 
 <!--Поддержка-->
