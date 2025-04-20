@@ -2,11 +2,11 @@
 Программное обеспечение для людей увлекающимся глобальным потеплением и предотвращением этой проблемы.
 <!-- описание репозитория -->
 <!--Блок информации о репозитории в бейджах-->
-![Static Badge](https://img.shields.io/badge/OkulusDev-Oxygen-Oxygen)
-![GitHub top language](https://img.shields.io/github/languages/top/OkulusDev/Oxygen)
-![GitHub](https://img.shields.io/github/license/OkulusDev/Oxygen)
-![GitHub Repo stars](https://img.shields.io/github/stars/OkulusDev/Oxygen)
-![GitHub issues](https://img.shields.io/github/issues/OkulusDev/Oxygen)
+![Static Badge](https://img.shields.io/badge/AlexGame2012/global-warming)
+![GitHub top language](https://img.shields.io/github/languages/top/AlexGame2012/global-warming)
+![GitHub](https://img.shields.io/github/license/AlexGame2012/global-warming)
+![GitHub Repo stars](https://img.shields.io/github/stars/AlexGame2012/global-warming)
+![GitHub issues](https://img.shields.io/github/issues/AlexGame2012/global-warming)
 
 ![Logotype](./docs/wall.jpg)
 
