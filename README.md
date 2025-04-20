@@ -2,7 +2,7 @@
 Программное обеспечение для людей увлекающимся глобальным потеплением и предотвращением этой проблемы.
 <!-- описание репозитория -->
 <!--Блок информации о репозитории в бейджах-->
-![Static Badge](https://img.shields.io/badge/AlexGame2012/global-warming)
+![Static Badge](https://img.shields.io/badge/AlexGame2012-global-warming-global-warming)
 ![GitHub top language](https://img.shields.io/github/languages/top/AlexGame2012/global-warming)
 ![GitHub](https://img.shields.io/github/license/AlexGame2012/global-warming)
 ![GitHub Repo stars](https://img.shields.io/github/stars/AlexGame2012/global-warming)
