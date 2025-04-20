@@ -69,7 +69,7 @@
 ```python app.py```
 
 
-[Релизы программы]: https://github.com/OkulusDev/Oxygen/releases
+[Релизы программы]: https://github.com/AlexGame2012/global-warming/releases
 
 <!--Поддержка-->
 ## Поддержка
