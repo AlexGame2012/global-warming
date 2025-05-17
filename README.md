@@ -4,7 +4,7 @@
 <!--Блок информации о репозитории в бейджах-->
 ![GitHub top language](https://img.shields.io/github/languages/top/AlexGame2012/global-warming)
 ![GitHub](https://img.shields.io/github/license/AlexGame2012/global-warming)
-![GitHub Repo stars](https://img.shields.io/github/stars/AlexGame2012/global-warming)
+
 ![GitHub issues](https://img.shields.io/github/issues/AlexGame2012/global-warming)
 
 <img src="https://i.imgur.com/M156USt.png" width="200" />
